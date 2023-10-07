@@ -30,6 +30,10 @@ void BinaryHeap::inserir( pair<float,int> no ) {
 }
 
 pair<float,int> BinaryHeap::getMin() {
+    if ( ultimo == -1 ) {
+        cerr << "Erro! Heap já está cheio!" << endl;
+        return pair<float,int>( -1, -1 );
+    }
     int posicao = 0;
     pair<float,int> menor = array.at( 0 );
     pair<int,int> filhos;

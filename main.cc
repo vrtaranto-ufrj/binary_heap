@@ -7,6 +7,7 @@ using namespace std;
 int main() {
     BinaryHeap heap( 5 );
 
+    cout << heap.getMin().first << endl;
     pair<float,int> node( 10, 0 );
     heap.inserir( node );
 

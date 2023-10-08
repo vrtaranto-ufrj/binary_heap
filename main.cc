@@ -7,9 +7,10 @@ using namespace std;
 int main() {
     BinaryHeap heap( 5 );
 
-    cout << heap.getMin().first << endl;
+    
     pair<float,int> node( 10, 0 );
     heap.inserir( node );
+    
 
     node.first = 7;
     heap.inserir( node );
@@ -27,6 +28,8 @@ int main() {
     cout << heap.getMin().first << endl;
     cout << heap.getMin().first << endl;
     cout << heap.getMin().first << endl;
+    cout << heap.getMin().first << endl;
+    cout << heap.isVazio() << endl;
 
     return 0;
 }

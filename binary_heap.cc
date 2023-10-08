@@ -59,6 +59,10 @@ pair<float,int> BinaryHeap::getMin() {
     return menor;
 }
 
+bool BinaryHeap::isVazio() {
+    return ultimo == -1;
+}
+
 int BinaryHeap::calculaPai( int posicao ) {
     if ( posicao % 2 == 0 )
         return ( posicao - 1 ) / 2;

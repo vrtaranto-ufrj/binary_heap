@@ -6,18 +6,19 @@
 
 using namespace std;
 
-BinaryHeap::BinaryHeap( int tamanho ) : array( tamanho ), ultimo( -1 ) {
-    this->tamanho = tamanho;
+BinaryHeap::BinaryHeap( int tamanho ) : ultimo( -1 ), tamanho( tamanho ), array( tamanho ) {
 }
 
-void BinaryHeap::inserir( pair<float,int> no ) {
+void BinaryHeap::inserir( pair<float,int> node ) {
     int posicao = ++ultimo;
-    array.at( posicao ) = no;
+    
     
     if ( posicao > tamanho ) {
         cerr << "Erro! Heap já está cheio!" << endl;
         return;
     }
+
+    array.at( posicao ) = node;
 
     int pai = calculaPai( posicao );
 
@@ -31,7 +32,7 @@ void BinaryHeap::inserir( pair<float,int> no ) {
 
 pair<float,int> BinaryHeap::getMin() {
     if ( ultimo == -1 ) {
-        cerr << "Erro! Heap já está cheio!" << endl;
+        cerr << "Erro! Heap já está vazio!" << endl;
         return pair<float,int>( -1, -1 );
     }
     int posicao = 0;

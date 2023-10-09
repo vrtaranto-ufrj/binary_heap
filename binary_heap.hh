@@ -14,15 +14,15 @@ class BinaryHeap {
 
         void inserir( pair<float,int> );
         pair<float,int> getMin();
-        bool isVazio();
+        bool isVazio() const;
 
     private:
         int ultimo;
         int tamanho;
 
         vector<pair<float,int>> array;
-        int calculaPai( int posicao );
-        pair<int,int> calculaFilhos( int posicao );
+        inline int calculaPai( int posicao ) const;
+        inline pair<int,int> calculaFilhos( int posicao ) const;
         bool isMenor( int posicao1, int posicao2 );
         void swap( int posicao1, int posicao2 );
 };

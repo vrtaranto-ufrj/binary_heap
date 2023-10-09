@@ -12,9 +12,9 @@ BinaryHeap::BinaryHeap( int tamanho ) : ultimo( -1 ), tamanho( tamanho ), array(
 void BinaryHeap::inserir( pair<float,int> node ) {
     int posicao = ++ultimo;
     
-    
     if ( posicao > tamanho ) {
         cerr << "Erro! Heap já está cheio!" << endl;
+        ultimo--;
         return;
     }
 
@@ -60,18 +60,18 @@ pair<float,int> BinaryHeap::getMin() {
     return menor;
 }
 
-bool BinaryHeap::isVazio() {
+bool BinaryHeap::isVazio() const {
     return ultimo == -1;
 }
 
-int BinaryHeap::calculaPai( int posicao ) {
+inline int BinaryHeap::calculaPai( int posicao ) const {
     if ( posicao % 2 == 0 )
         return ( posicao - 1 ) / 2;
     else
         return posicao / 2;
 }
 
-pair<int,int> BinaryHeap::calculaFilhos( int posicao ) {
+inline pair<int,int> BinaryHeap::calculaFilhos( int posicao ) const {
     pair<int, int> filhos;
     posicao++;
     filhos.second = posicao * 2;

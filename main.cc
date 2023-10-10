@@ -9,27 +9,32 @@ int main() {
 
     
     pair<float,int> node( 10, 0 );
-    heap.inserir( node );
+    heap.push( node );
     
 
     node.first = 7;
-    heap.inserir( node );
+    heap.push( node );
 
     node.first = 11;
-    heap.inserir( node );
+    heap.push( node );
 
     node.first = 5;
-    heap.inserir( node );
+    heap.push( node );
 
     node.first = 13;
-    heap.inserir( node );
+    heap.push( node );
 
-    cout << heap.getMin().first << endl;
-    cout << heap.getMin().first << endl;
-    cout << heap.getMin().first << endl;
-    cout << heap.getMin().first << endl;
-    cout << heap.getMin().first << endl;
-    cout << heap.isVazio() << endl;
+    cout << heap.top().first << endl;
+    heap.pop();
+    cout << heap.top().first << endl;
+    heap.pop();
+    cout << heap.top().first << endl;
+    heap.pop();
+    cout << heap.top().first << endl;
+    heap.pop();
+    cout << heap.top().first << endl;
+    heap.pop();
+    cout << heap.empty() << endl;
 
     return 0;
 }

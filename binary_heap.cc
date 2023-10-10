@@ -1,91 +1,83 @@
-#include <vector>
-#include <utility>
-#include <iostream>
-
 #include "binary_heap.hh"
 
-using namespace std;
-
-BinaryHeap::BinaryHeap( int tamanho ) : ultimo( -1 ), tamanho( tamanho ), array( tamanho ) {
+// Construtor: inicializa o heap com um tamanho definido e define 'ultimo' como -1.
+BinaryHeap::BinaryHeap(int tamanho) : tamanho(tamanho), ultimo(-1), array(tamanho) {
 }
 
-void BinaryHeap::inserir( pair<float,int> node ) {
-    int posicao = ++ultimo;
+// Insere um elemento no heap e ajusta o heap para manter sua propriedade.
+void BinaryHeap::push(std::pair<float, int> no) {
+    if (ultimo == tamanho - 1) {
+        throw std::runtime_error("Erro! Heap já está cheio!");
+    }
     
-    if ( posicao > tamanho ) {
-        cerr << "Erro! Heap já está cheio!" << endl;
-        ultimo--;
+    array[++ultimo] = no;
+
+    int posicao = ultimo;
+    int pai = calculaPai(posicao);
+
+    while (posicao != 0 && isMenor(posicao, pai)) {
+        swap(posicao, pai);
+        posicao = pai;
+        pai = calculaPai(posicao);
+    }
+}
+
+// Retorna o elemento no topo do heap.
+std::pair<float, int> BinaryHeap::top() const {
+    return array[0];
+}
+
+// Remove o elemento do topo e ajusta o heap.
+void BinaryHeap::pop() {
+    if (ultimo == -1) {
+        throw std::runtime_error("Erro! Heap já está vazio!");
         return;
     }
-
-    array.at( posicao ) = node;
-
-    int pai = calculaPai( posicao );
-
-    while ( isMenor( posicao, pai ) && posicao != 0 ) {
-        swap( posicao, pai );
-        posicao = pai;
-        pai = calculaPai( posicao );
-    }
-    
-}
-
-pair<float,int> BinaryHeap::getMin() {
-    if ( ultimo == -1 ) {
-        cerr << "Erro! Heap já está vazio!" << endl;
-        return pair<float,int>( -1, -1 );
-    }
     int posicao = 0;
-    pair<float,int> menor = array.at( 0 );
-    pair<int,int> filhos;
+    std::pair<int, int> filhos;
 
-    array.at( 0 ) = array.at( ultimo-- );
+    array[0] = array[ultimo--];
 
-    filhos = calculaFilhos( posicao );
+    filhos = calculaFilhos(posicao);
 
-    while ( filhos.first < ultimo || filhos.second < ultimo ) {
-        if ( isMenor( filhos.first, posicao ) ) {
-            swap( filhos.first, posicao );
+    while (filhos.first <= ultimo || filhos.second <= ultimo) {
+        if (isMenor(filhos.first, posicao)) {
+            swap(filhos.first, posicao);
             posicao = filhos.first;
-            filhos = calculaFilhos( posicao );
-        } else if ( isMenor( filhos.second, posicao ) ) {
-            swap( filhos.second, posicao );
+            filhos = calculaFilhos(posicao);
+        } else if (isMenor(filhos.second, posicao)) {
+            swap(filhos.second, posicao);
             posicao = filhos.second;
-            filhos = calculaFilhos( posicao );
+            filhos = calculaFilhos(posicao);
         }
         else
             break;
     }
-
-    return menor;
 }
 
-bool BinaryHeap::isVazio() const {
+// Verifica se o heap está vazio.
+bool BinaryHeap::empty() const {
     return ultimo == -1;
 }
 
-inline int BinaryHeap::calculaPai( int posicao ) const {
-    if ( posicao % 2 == 0 )
-        return ( posicao - 1 ) / 2;
-    else
-        return posicao / 2;
+// Calcula o índice do pai de um elemento específico no heap.
+int BinaryHeap::calculaPai(int posicao) const {
+    return (posicao - 1) / 2;
 }
 
-inline pair<int,int> BinaryHeap::calculaFilhos( int posicao ) const {
-    pair<int, int> filhos;
-    posicao++;
-    filhos.second = posicao * 2;
-    filhos.first = filhos.second - 1;
-
-    return filhos;
+// Calcula os índices dos filhos de um elemento específico no heap.
+std::pair<int, int> BinaryHeap::calculaFilhos(int posicao) const {
+    return std::make_pair(2 * posicao + 1, 2 * posicao + 2);
 }
 
-bool BinaryHeap::isMenor( int posicao1, int posicao2 ) {
-    return array.at( posicao1 ).first < array.at( posicao2 ).first;
+// Compara dois elementos no heap e retorna 'true' se o elemento na 'posicao1' for menor.
+bool BinaryHeap::isMenor(int posicao1, int posicao2) const {
+    return array[posicao1].first < array[posicao2].first;
 }
 
-void BinaryHeap::swap( int posicao1, int posicao2 ) {
-    pair<float,int> auxiliar = array.at( posicao1 );
-    array.at( posicao1 ) = array.at( posicao2 );
-    array.at( posicao2 ) = auxiliar;
+// Troca a posição de dois elementos no heap.
+void BinaryHeap::swap(int posicao1, int posicao2) {
+    std::pair<float, int> temp = array[posicao1];
+    array[posicao1] = array[posicao2];
+    array[posicao2] = temp;
 }

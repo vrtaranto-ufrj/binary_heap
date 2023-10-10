@@ -3,28 +3,46 @@
 
 #include <vector>
 #include <utility>
-
-
-using namespace std;
-
+#include <stdexcept>
 
 class BinaryHeap {
-    public:
-        BinaryHeap( int tamanho );
+public:
+    // Construtor: inicializa o heap com um tamanho específico.
+    BinaryHeap(int tamanho);
+    
+    // Insere um elemento no heap.
+    void push(std::pair<float, int> no);
+    
+    // Retorna o elemento no topo do heap sem removê-lo.
+    std::pair<float, int> top() const;
+    
+    // Remove o elemento no topo do heap.
+    void pop();
+    
+    // Retorna 'true' se o heap estiver vazio e 'false' caso contrário.
+    bool empty() const;
 
-        void inserir( pair<float,int> );
-        pair<float,int> getMin();
-        bool isVazio() const;
+private:
+    // Calcula o índice do pai de um elemento específico no heap.
+    inline int calculaPai(int posicao) const;
+    
+    // Calcula os índices dos filhos de um elemento específico no heap.
+    inline std::pair<int, int> calculaFilhos(int posicao) const;
+    
+    // Compara dois elementos no heap e retorna 'true' se o elemento na 'posicao1' for menor.
+    bool isMenor(int posicao1, int posicao2) const;
+    
+    // Troca a posição de dois elementos no heap.
+    void swap(int posicao1, int posicao2);
 
-    private:
-        int ultimo;
-        int tamanho;
+    // Tamanho máximo do heap.
+    int tamanho;
 
-        vector<pair<float,int>> array;
-        inline int calculaPai( int posicao ) const;
-        inline pair<int,int> calculaFilhos( int posicao ) const;
-        bool isMenor( int posicao1, int posicao2 );
-        void swap( int posicao1, int posicao2 );
+    // Índice do último elemento no heap.
+    int ultimo;
+    
+    // Vetor para armazenar os elementos do heap.
+    std::vector<std::pair<float, int>> array;
 };
 
 #endif

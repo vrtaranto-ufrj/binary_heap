@@ -1,7 +1,7 @@
 
 # Implementação de Heap Binário em C++ para o algortimo de Dijkstra
 
-Esse repositorio prove uma implementacão de um Heap binário em C++ visando seu uso para o algoritmo de Dijkstra.
+Esse repositorio provê uma implementacão de um Heap binário em C++ visando seu uso para o algoritmo de Dijkstra.
 
 ## Visao Geral
 

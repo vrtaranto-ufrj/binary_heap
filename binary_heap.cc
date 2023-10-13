@@ -1,5 +1,4 @@
 #include "binary_heap.hh"
-#include <iostream>
 
 // Construtor: inicializa o heap com um tamanho definido e define 'ultimo' como -1.
 BinaryHeap::BinaryHeap(int tamanho) : tamanho(tamanho), ultimo(-1), array(tamanho), mapPosicao(tamanho) {

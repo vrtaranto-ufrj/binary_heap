@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include <stdexcept>
+#include <unordered_map>
 
 class BinaryHeap {
 public:
@@ -21,6 +22,9 @@ public:
     
     // Retorna 'true' se o heap estiver vazio e 'false' caso contrário.
     bool empty() const;
+
+    // Atualiza a chave de um elemento no heap.
+    void decreaseKey(int elemento, float novaChave);
 
 private:
     // Calcula o índice do pai de um elemento específico no heap.
@@ -43,6 +47,9 @@ private:
     
     // Vetor para armazenar os elementos do heap.
     std::vector<std::pair<float, int>> array;
+
+    // Mapa para armazenar a posição de cada elemento no heap.
+    std::unordered_map<int, int> mapPosicao;
 };
 
 #endif

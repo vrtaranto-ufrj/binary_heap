@@ -19,6 +19,7 @@ A classe `BinaryHeap` oferece as seguintes funcionalidades:
 - Recuperar o elemento do topo do heap sem removê-lo.
 - Remover o elemento do topo do heap.
 - Checar se o heap está vazio.
+- Atualizar a chave de um elemento.
 
 
 ## Compilação e Execução
@@ -37,3 +38,17 @@ Para limpar os arquivos compilados e executáveis, use
 ```
 make clean
 ```
+
+## Arquivo de Testes
+
+O arquivo `binary_heap_tests.cc` contém uma série de testes para verificar a corretude da implementação do heap binário. 
+Ele realiza testes de inserção, remoção, diminuição de chave e um teste de estresse com operações aleatórias. 
+Durante a execução, o progresso de cada teste é mostrado em porcentagem.
+
+Para compilar e executar os testes:
+
+```
+make test
+```
+
+O programa imprimirá o progresso de cada teste e, se todos os testes forem bem-sucedidos, exibirá a mensagem "All tests passed!".

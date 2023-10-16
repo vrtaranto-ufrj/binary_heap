@@ -6,9 +6,11 @@ BinaryHeap::BinaryHeap(int tamanho) : tamanho(tamanho), ultimo(-1), array(tamanh
 
 // Insere um elemento no heap e ajusta o heap para manter sua propriedade.
 void BinaryHeap::push(std::pair<float, int> no) {
+    #ifdef DEBUG
     if (ultimo == tamanho - 1) {
         throw std::runtime_error("Erro! Heap já está cheio!");
     }
+    #endif
     
     array[++ultimo] = no;
 
@@ -30,13 +32,15 @@ std::pair<float, int> BinaryHeap::top() const {
 
 // Remove o elemento do topo e ajusta o heap.
 void BinaryHeap::pop() {
+    #ifdef DEBUG
     if (ultimo == -1) {
         throw std::runtime_error("Erro! Heap já está vazio!");
-        return;
     }
+    #endif
     int posicao = 0;
     std::pair<int, int> filhos;
 
+    mapPosicao.erase(array[0].second);
     array[0] = array[ultimo--];
 
     filhos = calculaFilhos(posicao);
@@ -63,16 +67,19 @@ void BinaryHeap::pop() {
 }
 
 void BinaryHeap::decreaseKey( int elemento, float novaChave ) {
-    if ( mapPosicao.find( elemento ) == mapPosicao.end() ) {
+    auto it = mapPosicao.find( elemento );
+    #ifdef DEBUG
+    if ( it == mapPosicao.end() ) {
         throw std::runtime_error("Erro! Elemento não está no heap!");
-        return;
     }
+    #endif
     
-    int posicao = mapPosicao[elemento];
+    int posicao = it->second;
+    #ifdef DEBUG
     if ( array[posicao].first <= novaChave ) {
-        throw std::runtime_error("Erro! Nova chave não é menor que a chave atual!");
-        return;
+        throw std::runtime_error("Erro! Nova chave não é menor que a chave aatual!");
     }
+    #endif
     array[posicao].first = novaChave;
     int pai = calculaPai(posicao);
 

@@ -4,7 +4,6 @@
 #include <vector>
 #include <utility>
 #include <stdexcept>
-#include <unordered_map>
 
 class BinaryHeap {
 public:
@@ -49,7 +48,7 @@ private:
     std::vector<std::pair<float, int>> array;
 
     // Mapa para armazenar a posição de cada elemento no heap.
-    std::unordered_map<int, int> mapPosicao;
+    std::vector<int> mapPosicao;
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include "binary_heap.hh"
 
 // Construtor: inicializa o heap com um tamanho definido e define 'ultimo' como -1.
-BinaryHeap::BinaryHeap(int tamanho) : tamanho(tamanho), ultimo(-1), array(tamanho), mapPosicao(tamanho) {
+BinaryHeap::BinaryHeap(int tamanho) : tamanho(tamanho), ultimo(-1), array(tamanho), mapPosicao(tamanho, -1) {
 }
 
 // Insere um elemento no heap e ajusta o heap para manter sua propriedade.
@@ -40,7 +40,7 @@ void BinaryHeap::pop() {
     int posicao = 0;
     std::pair<int, int> filhos;
 
-    mapPosicao.erase(array[0].second);
+    mapPosicao[array[0].second] = -1;
     array[0] = array[ultimo--];
 
     filhos = calculaFilhos(posicao);
@@ -67,14 +67,13 @@ void BinaryHeap::pop() {
 }
 
 void BinaryHeap::decreaseKey( int elemento, float novaChave ) {
-    auto it = mapPosicao.find( elemento );
+    int posicao = mapPosicao[elemento];
     #ifdef DEBUG
-    if ( it == mapPosicao.end() ) {
+    if ( posicao == -1 ) {
         throw std::runtime_error("Erro! Elemento não está no heap!");
     }
     #endif
     
-    int posicao = it->second;
     #ifdef DEBUG
     if ( array[posicao].first <= novaChave ) {
         throw std::runtime_error("Erro! Nova chave não é menor que a chave aatual!");
